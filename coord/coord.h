@@ -5,7 +5,6 @@
 #ifndef BLOCK_V2_UTILITY_COORD_H_
 #define BLOCK_V2_UTILITY_COORD_H_
 
-#include "../CoA_settings.h"
 
 #include <cassert>
 #include <ciso646>
