@@ -6,5 +6,6 @@
 #define PM_STL__PM_INCLUDE_H_
 #include "clock/clock.h"
 #include "clock/tracer.h"
+#include "logger/logger.h"
 
 #endif // PM_STL__PM_INCLUDE_H_
