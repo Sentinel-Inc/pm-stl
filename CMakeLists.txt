@@ -6,7 +6,15 @@ project(pm_stl)
 #add_subdirectory(src)
 #include_directories(src)
 #link_libraries(compression_algorithms)
+add_subdirectory(clock)
+include_directories(clock)
 
-add_library(pm_stl
+#target_add_directories(pm_stl clock)
+
+link_libraries(performance)
+
+add_library(pm_stl pm_include.h
         # Dependencies
         )
+add_executable(test test.cpp)
+
