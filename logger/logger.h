@@ -7,7 +7,7 @@
 #include <string>
 #include <chrono>
 
-namespace mk {
+namespace pm {
 
 class Logger {
  public:
@@ -29,7 +29,7 @@ class Logger {
 
   static const Logger &get_instance();
 
-  static void init(Logger::Level level = Logger::none,
+  static void init(Logger::Level level = Logger::all,
                    Logger::Config config = {false, false, false, false, true},
                    std::string path = "./log");
 
@@ -67,18 +67,18 @@ std::ostream &operator<<(std::ostream &ou, Logger::Info);
 #define GET_CODE_INFO                                                          \
   { __FILE__, __LINE__, __func__ } // __PRETTY_FUNCTION__
 
-#define LOG(message) mk::Logger::log(message, GET_CODE_INFO)
-#define ERR(message) mk::Logger::err(message, GET_CODE_INFO)
-#define WARN(message) mk::Logger::warn(message, GET_CODE_INFO)
+#define LOG(message) pm::Logger::log(message, GET_CODE_INFO)
+#define ERR(message) pm::Logger::err(message, GET_CODE_INFO)
+#define WARN(message) pm::Logger::warn(message, GET_CODE_INFO)
 #define TRUE_OR_ERR(condition, message)                                        \
-  mk::Logger::true_or_err(condition, message,  mk::Logger::Info(GET_CODE_INFO))
+  pm::Logger::true_or_err(condition, message,  pm::Logger::Info(GET_CODE_INFO))
 #define TRUE_OR_PANIC(condition, message)                                      \
-  mk::Logger::true_or_panic(condition, message, GET_CODE_INFO)
+  pm::Logger::true_or_panic(condition, message, GET_CODE_INFO)
 
 #define TIME_START(name) auto name = std::chrono::high_resolution_clock::now()
 #define TIME_STOP(name, desc)                                                  \
   auto stop = std::chrono::high_resolution_clock::now();                       \
-  mk::Logger::time_stop(                                                       \
+  pm::Logger::time_stop(                                                       \
     std::chrono::duration_cast<std::chrono::microseconds>(stop - name).count(),\
     desc,                                                                      \
     GET_CODE_INFO)
