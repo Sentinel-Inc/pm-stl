@@ -9,7 +9,7 @@
 #include <cassert>
 #include <ciso646>
 #include <ostream>
-
+namespace pm {
 struct Coord {
 
   Coord();
@@ -36,5 +36,5 @@ struct Coord {
   int x;
   int y;
 };
-
+}// namespace pm
 #endif // BLOCK_V2_UTILITY_COORD_H_

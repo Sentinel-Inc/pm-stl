@@ -11,28 +11,17 @@
 #include <utility>
 #include <vector>
 
-#define DEBUG_MODE true
-#define AUTO_FUNCTION_NAMES false
+#define AUTO_TRACER Tracer tracer(__FILE__, __func__)
+#define TRACER(x) pm::Tracer tracer(x)
+#define SAVE_TRACINGS(x) pm::Tracer::SaveToJSON(x)
 
-#if DEBUG_MODE
-#if AUTO_FUNCTION_NAMES
-#define START_TRACER Tracer tracer(__FILE__, __func__)
-#else
-#define START_TRACER(x) Tracer tracer(x)
-#endif
-#define SAVE_TRACINGS(x) Tracer::SaveToJSON(x)
-#else
-
-#define START_TRACER(x)
-#define SAVE_TRACINGS(x)
-#endif
+namespace pm {
 enum class Type {
   BEGIN,
   END
 };
 struct Tracers {
   Tracers(std::string name, Type type, long long int time_point, size_t thread_id);
-
   std::string name;
   Type type;
   long long int time_point;
@@ -58,5 +47,5 @@ class Tracer {
   std::chrono::time_point<std::chrono::high_resolution_clock> time_point_;
   size_t thread_id_ = std::hash<std::thread::id>{}(std::this_thread::get_id());
 };
-
+}// namespace pm
 #endif//COA_CLOCK_TRACER_H_

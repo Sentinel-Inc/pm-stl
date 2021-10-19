@@ -3,6 +3,7 @@
 //
 
 #include "coord.h"
+using namespace pm;
 Coord::Coord(): x(0), y(0) {}
 Coord::Coord( int x,  int y) : x(x), y(y) {}
 //Coord::Coord(const unsigned int x, const unsigned int y)  : x((int)x), y((int)y){}

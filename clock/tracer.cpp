@@ -5,7 +5,7 @@
 #include "tracer.h"
 #include <fstream>
 #include <utility>
-
+using namespace pm;
 std::chrono::time_point<std::chrono::high_resolution_clock> global_begin_ = std::chrono::high_resolution_clock::now();
 std::vector<Tracers> Tracer::saved_tracers_;
 std::string GenFunctionName2(const std::string &file_name, const std::string &function_name) {
