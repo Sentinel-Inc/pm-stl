@@ -4,37 +4,26 @@
 
 #ifndef COA_CLOCK_CLOCK_H
 #define COA_CLOCK_CLOCK_H
-
 #include <chrono>
+#include <iostream>
 #include <map>
 #include <stack>
 #include <string>
 #include <utility>
 
-#define DEBUG_MODE false
+#define AUTO_CLOCK pm::Clock timer(__FILE__, __func__)
+#define START_CLOCK(x) pm::Clock timer(x)
 
-#define AUTO_FUNCTION_NAMES false
-#define LINE_BYLINE_MODE false
-//
-//#if DEBUG_MODE and AUTO_FUNCTION_NAMES
-//#define START_CLOCK Clock timer(__FILE__, __func__)
-//#define SAVE_TIMINGS(x) Clock::SaveToFile(x)
-//#endif
-//
-//#if DEBUG_MODE and LINE_BYLINE_MODE
-//#define START_CLOCK(x)               \
-//  {                                  \
-//   Clock timer(__LINE__);      \
-//    x                                \
-//  }
-//#define SAVE_TIMINGS(x) Clock::SaveToFile(x)
-//#endif
-//
-//#if not DEBUG_MODE
-//#define START_CLOCK(x)
-//#define SAVE_TIMINGS(x)
-//#endif
+#define LINE_CLOCK(x)      \
+  {                        \
+    Clock timer(__LINE__); \
+    x                      \
+  }
 
+#define SAVE_TIMINGS(x) pm::Clock::SaveToFile(x)
+#define DISPLAY_TIMINGS pm::Clock::DisplayToConsole()
+
+namespace pm {
 class Clock {
  public:
   Clock() = delete;
@@ -47,6 +36,7 @@ class Clock {
   void Stop();
   void Start();
   static void SaveToFile(const std::string &filename);
+  static void DisplayToConsole();
 
  protected:
   ///for no timings will simply store value in microseconds
@@ -55,5 +45,5 @@ class Clock {
   std::string clock_name_;
   std::chrono::time_point<std::chrono::high_resolution_clock> time_point_;
 };
-
+}// namespace pm
 #endif//COA_CLOCK_CLOCK_H_

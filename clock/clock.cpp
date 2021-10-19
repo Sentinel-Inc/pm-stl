@@ -4,6 +4,7 @@
 
 #include "clock.h"
 #include <fstream>
+using namespace pm;
 std::map<std::string, long long unsigned int> Clock::timings_;
 std::stack<Clock *> Clock::clocks_;
 
@@ -59,8 +60,8 @@ Clock::~Clock() {
 }
 void Clock::SaveToFile(const std::string &filename) {
   std::fstream output_file;
-  output_file.open("../testing/" + filename, std::ios::out);
-  //todo rewrite this loop correctly
+  output_file.open(filename, std::ios::out);
+
   int i = 0;
   for (auto t = timings_.begin(); t != timings_.end(); ++t) {
     output_file << t->first << '\t' << t->second;
@@ -80,4 +81,15 @@ void Clock::Stop() {
 }
 void Clock::Start() {
   time_point_ = std::chrono::high_resolution_clock::now();
+}
+void Clock::DisplayToConsole() {
+
+  long long unsigned int time_sum = 0;
+  for (auto &timing : timings_)
+    time_sum += timing.second;
+
+  std::cout << "total measured time : " << time_sum << " microseconds [us]\t" << (double) time_sum / 1000 << " milliseconds [ms]\t" << (double) time_sum / 1000'000 << " seconds [s]\n";
+  for (auto &timing : timings_) {
+    std::cout << timing.first << '\t' << timing.second << "us\t" << 100 * (double) timing.second / time_sum << "% of total measured time \n";
+  }
 }

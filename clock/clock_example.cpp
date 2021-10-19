@@ -9,21 +9,33 @@
 int Fun2();
 
 int Fun() {
-  START_TRACER;
-  std::this_thread::sleep_for(std::chrono::seconds(1));
 
-  return Fun2();
+  AUTO_CLOCK;
+  std::this_thread::sleep_for(std::chrono::seconds(1));
+  // note that Fun() invokes Fun2(), and by doing that stops its own clock
+  Fun2();
+
+  return 0;
 }
 
 int Fun2() {
-  START_TRACER;
+  AUTO_CLOCK;
   std::this_thread::sleep_for(std::chrono::seconds(1));
-  return 7;
+  return 0;
+}
+
+int HalfOfFun() {
+
+  AUTO_CLOCK;
+  std::this_thread::sleep_for(std::chrono::milliseconds(500));
+  return 0;
 }
 
 int main() {
-
+  std::cout << "Example 1 non additive*, time measurement across 3 functions\nresults appear in console with simplistic interpretation\n";
   Fun();
-  SAVE_TRACINGS("test_son");
-  return 9;
+  HalfOfFun();
+  SAVE_TIMINGS("example1.txt");
+
+  return 0;
 }
