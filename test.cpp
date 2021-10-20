@@ -11,7 +11,7 @@ int main() {
 
   pm::Logger::init(pm::Logger::all, config);
   {
-    START_TRACER("first");
+    //    START_TRACER("first");
     LOG("Hello world");
   }
   TIME_START(name);
